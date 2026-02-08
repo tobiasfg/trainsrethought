@@ -3,16 +3,16 @@ flatbed.name = "trr-flatbed-wagon"
 flatbed.minable = flatbed.minable or {}
 flatbed.minable.result = "trr-flatbed-wagon"
 flatbed.inventory_size = 0
-flatbed.icon = "__base__/graphics/icons/cargo-wagon.png"
-flatbed.icon_size = 64
-flatbed.icon_mipmaps = 4
 
-local item = table.deepcopy(data.raw["item"]["cargo-wagon"])
+local cargo_wagon_item_source = (data.raw["item-with-entity-data"] and data.raw["item-with-entity-data"]["cargo-wagon"])
+  or (data.raw["item"] and data.raw["item"]["cargo-wagon"])
+if not cargo_wagon_item_source then
+  error("Trains Rethought: couldn't find item prototype for cargo-wagon")
+end
+
+local item = table.deepcopy(cargo_wagon_item_source)
 item.name = "trr-flatbed-wagon"
 item.place_result = "trr-flatbed-wagon"
-item.icon = "__base__/graphics/icons/cargo-wagon.png"
-item.icon_size = 64
-item.icon_mipmaps = 4
 
 local recipe = table.deepcopy(data.raw["recipe"]["cargo-wagon"])
 recipe.name = "trr-flatbed-wagon"
@@ -28,10 +28,6 @@ elseif recipe.results then
     end
   end
 end
-
-recipe.icon = "__base__/graphics/icons/cargo-wagon.png"
-recipe.icon_size = 64
-recipe.icon_mipmaps = 4
 
 local wagon_tech = data.raw["technology"]["railway"]
 if wagon_tech then
