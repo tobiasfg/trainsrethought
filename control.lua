@@ -6,7 +6,7 @@ local CHEST_ENTITY_TYPES = {
   ["logistic-container"] = true
 }
 
-local MANUAL_SLOT_RADIUS = 0.85
+local MANUAL_SLOT_RADIUS = 1.60
 local SLOT_MATCH_RADIUS = 0.55
 local ATTACH_SEARCH_RADIUS = 2.75
 local EPSILON = 0.0001
@@ -75,18 +75,18 @@ end
 local function get_slot_offsets(direction)
   if direction == defines.direction.east or direction == defines.direction.west then
     return {
-      {x = -2.5, y = -0.5}, {x = -1.5, y = -0.5}, {x = -0.5, y = -0.5},
-      {x = 0.5, y = -0.5}, {x = 1.5, y = -0.5}, {x = 2.5, y = -0.5},
-      {x = -2.5, y = 0.5}, {x = -1.5, y = 0.5}, {x = -0.5, y = 0.5},
-      {x = 0.5, y = 0.5}, {x = 1.5, y = 0.5}, {x = 2.5, y = 0.5}
+      {x = -2.5, y = -0.9}, {x = -1.5, y = -0.9}, {x = -0.5, y = -0.9},
+      {x = 0.5, y = -0.9}, {x = 1.5, y = -0.9}, {x = 2.5, y = -0.9},
+      {x = -2.5, y = 0.9}, {x = -1.5, y = 0.9}, {x = -0.5, y = 0.9},
+      {x = 0.5, y = 0.9}, {x = 1.5, y = 0.9}, {x = 2.5, y = 0.9}
     }
   end
 
   return {
-    {x = -0.5, y = -2.5}, {x = -0.5, y = -1.5}, {x = -0.5, y = -0.5},
-    {x = -0.5, y = 0.5}, {x = -0.5, y = 1.5}, {x = -0.5, y = 2.5},
-    {x = 0.5, y = -2.5}, {x = 0.5, y = -1.5}, {x = 0.5, y = -0.5},
-    {x = 0.5, y = 0.5}, {x = 0.5, y = 1.5}, {x = 0.5, y = 2.5}
+    {x = -0.9, y = -2.5}, {x = -0.9, y = -1.5}, {x = -0.9, y = -0.5},
+    {x = -0.9, y = 0.5}, {x = -0.9, y = 1.5}, {x = -0.9, y = 2.5},
+    {x = 0.9, y = -2.5}, {x = 0.9, y = -1.5}, {x = 0.9, y = -0.5},
+    {x = 0.9, y = 0.5}, {x = 0.9, y = 1.5}, {x = 0.9, y = 2.5}
   }
 end
 
@@ -1057,20 +1057,24 @@ local function return_item_to_builder(event, chest_name, chest_quality, position
   end
 end
 
-local function reject_manual_place(event, chest, reason)
-  local quality = safe_get(chest, "quality")
-  local pos = chest.position
-  local surface = chest.surface
+local function notify_manual_place_failure(event, position, reason)
+  if not event or not event.player_index then
+    return
+  end
 
-  return_item_to_builder(event, chest.name, quality, pos, surface)
+  local player = game.get_player(event.player_index)
+  if not player or not player.valid then
+    return
+  end
 
-  chest.destroy()
-  surface.create_entity {
-    name = "flying-text",
-    position = pos,
-    text = reason,
-    color = {r = 1.0, g = 0.3, b = 0.3}
-  }
+  pcall(function()
+    player.create_local_flying_text {
+      text = reason,
+      position = position,
+      color = {r = 1.0, g = 0.3, b = 0.3},
+      create_at_cursor = false
+    }
+  end)
 end
 
 local function handle_manual_chest_build(event, chest)
@@ -1084,12 +1088,17 @@ local function handle_manual_chest_build(event, chest)
   slot_index, slot_pos = find_slot_for_position(wagon, chest.position, MANUAL_SLOT_RADIUS)
 
   if not slot_index then
-    reject_manual_place(event, chest, "Chest must be placed on a flatbed slot")
+    -- Keep ground placement valid when not close enough to a slot.
     return
   end
 
   if is_wagon_moving(wagon) then
-    reject_manual_place(event, chest, "Cannot place chest while train is moving")
+    local quality = safe_get(chest, "quality")
+    local pos = chest.position
+    local surface = chest.surface
+    return_item_to_builder(event, chest.name, quality, pos, surface)
+    chest.destroy()
+    notify_manual_place_failure(event, pos, "Cannot place chest while train is moving")
     return
   end
 
@@ -1099,7 +1108,12 @@ local function handle_manual_chest_build(event, chest)
   if occupied then
     local occupied_entry = storage.chests[occupied]
     if occupied_entry and occupied_entry.entity and occupied_entry.entity.valid then
-      reject_manual_place(event, chest, "Flatbed slot is occupied")
+      local quality = safe_get(chest, "quality")
+      local pos = chest.position
+      local surface = chest.surface
+      return_item_to_builder(event, chest.name, quality, pos, surface)
+      chest.destroy()
+      notify_manual_place_failure(event, pos, "Flatbed slot is occupied")
       return
     end
     wagon_entry.chests_by_slot[slot_index] = nil
