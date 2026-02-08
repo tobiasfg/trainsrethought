@@ -1,0 +1,890 @@
+<div id="mw-indicator-smw-entity-examiner" class="mw-indicator">
+    <div class="smw-entity-examiner smw-indicator-vertical-bar-loader" data-subject="Mod_settings#3000##" data-dir="ltr"
+        data-uselang="" title="Running an examiner in the background"></div>
+</div>
+</div>
+<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-namespace">Tutorial</span><span
+        class="mw-page-title-separator">:</span><span class="mw-page-title-main">Mod settings</span></h1>
+<div id="bodyContent" class="vector-body">
+    <div id="siteSub" class="noprint">From Official Factorio Wiki</div>
+    <div id="contentSub">
+        <div id="mw-content-subtitle"></div>
+    </div>
+    <div id="contentSub2"></div>
+
+    <div id="jump-to-nav"></div>
+    <a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+    <a class="mw-jump-link" href="#searchInput">Jump to search</a>
+    <div id="mw-content-text" class="mw-body-content">
+        <div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+            <p>This tutorial aims to explain how to create and use mod settings. Basic knowledge of modding is assumed,
+                so you should have at least understood <a href="/Tutorial:Modding_tutorial/Gangsir"
+                    title="Tutorial:Modding tutorial/Gangsir">Gangsir's modding tutorial</a>.
+            </p>
+            <div id="toc" class="toc" role="navigation" aria-labelledby="mw-toc-heading"><input type="checkbox"
+                    role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none" />
+                <div class="toctitle" lang="en" dir="ltr">
+                    <h2 id="mw-toc-heading">Contents</h2><span class="toctogglespan"><label class="toctogglelabel"
+                            for="toctogglecheckbox"></label></span>
+                </div>
+                <ul>
+                    <li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span
+                                class="toctext">Overview</span></a></li>
+                    <li class="toclevel-1 tocsection-2"><a href="#Location"><span class="tocnumber">2</span> <span
+                                class="toctext">Location</span></a></li>
+                    <li class="toclevel-1 tocsection-3"><a href="#Creation"><span class="tocnumber">3</span> <span
+                                class="toctext">Creation</span></a>
+                        <ul>
+                            <li class="toclevel-2 tocsection-4"><a href="#The_name_property"><span
+                                        class="tocnumber">3.1</span> <span class="toctext">The name property</span></a>
+                            </li>
+                            <li class="toclevel-2 tocsection-5"><a href="#The_type_property"><span
+                                        class="tocnumber">3.2</span> <span class="toctext">The type property</span></a>
+                                <ul>
+                                    <li class="toclevel-3 tocsection-6"><a href="#bool-setting"><span
+                                                class="tocnumber">3.2.1</span> <span
+                                                class="toctext">bool-setting</span></a></li>
+                                    <li class="toclevel-3 tocsection-7"><a href="#int-setting"><span
+                                                class="tocnumber">3.2.2</span> <span
+                                                class="toctext">int-setting</span></a></li>
+                                    <li class="toclevel-3 tocsection-8"><a href="#double-setting"><span
+                                                class="tocnumber">3.2.3</span> <span
+                                                class="toctext">double-setting</span></a></li>
+                                    <li class="toclevel-3 tocsection-9"><a href="#string-setting"><span
+                                                class="tocnumber">3.2.4</span> <span
+                                                class="toctext">string-setting</span></a></li>
+                                    <li class="toclevel-3 tocsection-10"><a href="#color-setting"><span
+                                                class="tocnumber">3.2.5</span> <span
+                                                class="toctext">color-setting</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="toclevel-2 tocsection-11"><a href="#The_order_property"><span
+                                        class="tocnumber">3.3</span> <span class="toctext">The order property</span></a>
+                            </li>
+                            <li class="toclevel-2 tocsection-12"><a href="#The_hidden_property"><span
+                                        class="tocnumber">3.4</span> <span class="toctext">The hidden
+                                        property</span></a></li>
+                            <li class="toclevel-2 tocsection-13"><a href="#The_setting_type_property"><span
+                                        class="tocnumber">3.5</span> <span class="toctext">The setting_type
+                                        property</span></a></li>
+                            <li class="toclevel-2 tocsection-14"><a href="#Locale"><span class="tocnumber">3.6</span>
+                                    <span class="toctext">Locale</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="toclevel-1 tocsection-15"><a href="#Usage"><span class="tocnumber">4</span> <span
+                                class="toctext">Usage</span></a>
+                        <ul>
+                            <li class="toclevel-2 tocsection-16"><a href="#Reading_settings"><span
+                                        class="tocnumber">4.1</span> <span class="toctext">Reading settings</span></a>
+                            </li>
+                            <li class="toclevel-2 tocsection-17"><a href="#Writing_to_your_own_settings"><span
+                                        class="tocnumber">4.2</span> <span class="toctext">Writing to your own
+                                        settings</span></a></li>
+                            <li class="toclevel-2 tocsection-18"><a href="#Changing_another_mod&#39;s_settings"><span
+                                        class="tocnumber">4.3</span> <span class="toctext">Changing another mod's
+                                        settings</span></a></li>
+                            <li class="toclevel-2 tocsection-19"><a href="#Tips"><span class="tocnumber">4.4</span>
+                                    <span class="toctext">Tips</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="toclevel-1 tocsection-20"><a href="#See_also"><span class="tocnumber">5</span> <span
+                                class="toctext">See also</span></a></li>
+                </ul>
+            </div>
+
+            <h2><span class="mw-headline" id="Overview">Overview</span></h2>
+            <p>Each mod can specify settings that users can change. The values of these settings can be accessed from
+                inside the data stage or the control stage depending on their <a
+                    href="#The_setting_type_property">setting_type</a> and allow to conditionally create or modify
+                prototypes and to add configuration options to control scripts. They allow modders to easily create a
+                graphical interface for their configuration options, instead of using on text files that have to be
+                edited manually by users.
+            </p>
+            <h2><span class="mw-headline" id="Location">Location</span></h2>
+            <p>Mod settings are defined in the <a rel="nofollow" class="external text"
+                    href="https://lua-api.factorio.com/latest/auxiliary/data-lifecycle.html">settings stage</a>. This
+                stage is loaded before the data stage. There are three files in which settings can be defined:
+            </p>
+            <ul>
+                <li>settings.lua</li>
+                <li>settings-updates.lua</li>
+                <li>settings-final-fixes.lua</li>
+            </ul>
+            <p>First the settings.lua file is called for each mod, in the order of their dependencies and then in the <a
+                    href="http://en.wikipedia.org/wiki/natural_sort_order" class="extiw"
+                    title="wikipedia:natural sort order">natural sort order</a>. After settings.lua has been called for
+                all mods, the settings-updates.lua file is called for each mod <sup>(in the same order)</sup> and
+                finally the settings-final-fixes.lua file is called for each mod <sup>(in the same order)</sup>. These 3
+                different phases of the settings stage allow to change settings of other mods without needing to rely on
+                dependencies to load last. The settings are all defined in the same stage and their user defined values
+                are not available, therefore mods cannot conditionally create settings depending on the values of other
+                mod settings. Since the settings stage gets loaded first, there is also no prototype data or <a
+                    rel="nofollow" class="external text"
+                    href="https://lua-api.factorio.com/latest/classes/LuaRemote.html">remote interface</a> available.
+            </p>
+            <p>The "mod-settings.dat" file stored in the <a href="/Application_directory#User_Data_directory"
+                    title="Application directory">mods folder</a> for the game contains the local players settings
+                between game sessions similar to the player-data.json file.
+            </p>
+            <h2><span class="mw-headline" id="Creation">Creation</span></h2>
+            <p>Mod settings are defined and modified by using the data table during the settings stage. This works <a
+                    href="/Tutorial:Modding_tutorial/Gangsir#Prototype_creation"
+                    title="Tutorial:Modding tutorial/Gangsir">the same way as other prototypes</a>. An example would be:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="nv">data</span><span class="p">:</span><span class="nf">extend</span><span class="p">({</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bool-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-mod-test-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">setting_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;runtime-global&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})</span>
+</pre>
+            </div>
+            <p>As you can see, the setting has multiple properties. Each setting supports the following standard
+                prototype properties:
+            </p>
+            <ul>
+                <li>name - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/string.html">string</a> - Mandatory.</li>
+                <li>type - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/string.html">string</a> - Mandatory.</li>
+                <li>localised_name - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/LocalisedString.html">LocalisedString</a> -
+                    Optional.</li>
+                <li>localised_description - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/LocalisedString.html">LocalisedString</a> -
+                    Optional.</li>
+                <li><a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/Order.html">order</a> - <a rel="nofollow"
+                        class="external text" href="https://lua-api.factorio.com/latest/types/string.html">string</a> -
+                    Optional.</li>
+            </ul>
+            <p>In addition to the standard properties, mod settings also contain:
+            </p>
+            <ul>
+                <li>hidden - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/boolean.html">boolean</a> - Optional.</li>
+                <li>setting_type - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/string.html">string</a> - Mandatory.</li>
+            </ul>
+            <h3><span class="mw-headline" id="The_name_property">The name property</span></h3>
+            <p>The name of the settings prototype should be unique to avoid mod conflicts since the mod settings are
+                global across all mods. Because of that it is recommened to prefix mod settings with your mod name,
+                "my-mod" in this example.
+            </p>
+            <h3><span class="mw-headline" id="The_type_property">The type property</span></h3>
+            <p>There are five types of mod settings:
+            </p>
+            <ul>
+                <li>bool-setting - a true/false checkbox</li>
+                <li>int-setting - a signed 64 bit integer textfield (or selection dropdown)</li>
+                <li>double-setting - a double precision floating point textfield (or selection dropdown)</li>
+                <li>string-setting - a string textfield (or selection dropdown)</li>
+                <li>color-setting - a color picker (sliders), with whole number textfields. Includes alpha.</li>
+            </ul>
+            <p>Depending on the type, the prototype also allows or requires additional properties, these are listed
+                below.
+            </p>
+            <h4><span class="mw-headline" id="bool-setting">bool-setting</span></h4>
+            <ul>
+                <li>default_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/boolean.html">boolean</a> - Mandatory.
+                    <ul>
+                        <li>Defines the default value of the setting, in this case whether the checkbox is checked or
+                            not.</li>
+                    </ul>
+                </li>
+                <li>forced_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/boolean.html">boolean</a> - Optional.
+                    <ul>
+                        <li>Only loaded if <code>hidden = true</code>. This forces the setting to be of this value. This
+                            can be useful for mod compatiblity.<sup><a rel="nofollow" class="external autonumber"
+                                    href="https://forums.factorio.com/viewtopic.php?p=531322#p531322">[1]</a></sup></li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="mw-empty-elt">
+            </p>
+            <h4><span class="mw-headline" id="int-setting">int-setting</span></h4>
+            <ul>
+                <li>default_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/int64.html">int64</a> - Mandatory.
+                    <ul>
+                        <li>Defines the default value of the setting.</li>
+                    </ul>
+                </li>
+                <li>minimum_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/int64.html">int64</a> - Optional.
+                    <ul>
+                        <li>Defines the lowest possible number.</li>
+                    </ul>
+                </li>
+                <li>maximum_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/int64.html">int64</a> - Optional.
+                    <ul>
+                        <li>Defines the highest possible number.</li>
+                    </ul>
+                </li>
+                <li>allowed_values - array of <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/int64.html">int64</a> - Optional.
+                    <ul>
+                        <li>Makes it possible to force the player to choose between the defined numbers, creates a
+                            dropdown instead of a texfield.</li>
+                        <li>If only one allowed value is given, the settings is forced to be of that value.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4><span class="mw-headline" id="double-setting">double-setting</span></h4>
+            <ul>
+                <li>default_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/double.html">double</a> - Mandatory.
+                    <ul>
+                        <li>Defines the default value of the setting.</li>
+                    </ul>
+                </li>
+                <li>minimum_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/double.html">double</a> - Optional.
+                    <ul>
+                        <li>Defines the lowest possible number.</li>
+                    </ul>
+                </li>
+                <li>maximum_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/double.html">double</a> - Optional.
+                    <ul>
+                        <li>Defines the highest possible number.</li>
+                    </ul>
+                </li>
+                <li>allowed_values - array of <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/double.html">double</a> - Optional.
+                    <ul>
+                        <li>Makes it possible to force the player to choose between the defined numbers, creates a
+                            dropdown instead of a textfield.</li>
+                        <li>If only one allowed value is given, the settings is forced to be of that value.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4><span class="mw-headline" id="string-setting">string-setting</span></h4>
+            <ul>
+                <li>default_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/string.html">string</a> - Mandatory.
+                    <ul>
+                        <li>Defines the default value of the setting.</li>
+                    </ul>
+                </li>
+                <li>allow_blank - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/boolean.html">boolean</a> - Optional. - Default:
+                    false
+                    <ul>
+                        <li>Defines whether it's possible for the user to set the textfield to empty and apply the
+                            setting.</li>
+                    </ul>
+                </li>
+                <li>auto_trim - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/boolean.html">boolean</a> - Optional. - Default:
+                    false
+                    <ul>
+                        <li>Whether values that are input by the user should have whitespace removed from both ends of
+                            the string.</li>
+                    </ul>
+                </li>
+                <li>allowed_values - array of <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/string.html">string</a> - Optional.
+                    <ul>
+                        <li>Makes it possible to force the player to choose between the defined strings, creates a
+                            dropdown instead of a textfield. The strings in the dropdown can be localized (translated)
+                            and can have a tooltip, see below.</li>
+                        <li>If only one allowed value is given, the settings is forced to be of that value.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4><span class="mw-headline" id="color-setting">color-setting</span></h4>
+            <ul>
+                <li>default_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/Color.html">Color</a> - Mandatory.
+                    <ul>
+                        <li>Defines the default value of the setting.</li>
+                    </ul>
+                </li>
+                <li>forced_value - <a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/types/Color.html">Color</a> - Optional.
+                    <ul>
+                        <li>Only loaded if <code>hidden = true</code>. This forces the setting to be of this value.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3><span class="mw-headline" id="The_order_property">The order property</span></h3>
+            <p>The order property can be used to change how the mod settings are ordered in the settings gui. Mod
+                settings are sorted
+            </p>
+            <ul>
+                <li>first by mod</li>
+                <li>then by the setting "order" string</li>
+                <li>then finally by the setting name.</li>
+            </ul>
+            <p>For more info on how to use the order string, see <a rel="nofollow" class="external text"
+                    href="https://lua-api.factorio.com/latest/types/Order.html">Order</a>.
+            </p>
+            <h3><span class="mw-headline" id="The_hidden_property">The hidden property</span></h3>
+            <p>The hidden property can be used to hide mod settings from GUIs, so that they cannot be seen or changed by
+                players. However, other mods can still access hidden settings.<sup><a rel="nofollow"
+                        class="external autonumber" href="https://forums.factorio.com/83316">[2]</a></sup>
+            </p>
+            <h3><span class="mw-headline" id="The_setting_type_property">The setting_type property</span></h3>
+            <figure class="mw-halign-right" typeof="mw:File/Thumb"><a href="/File:Mod_settings_gui.png"
+                    class="mw-file-description"><img src="/images/Mod_settings_gui.png" decoding="async" width="272"
+                        height="500" class="mw-file-element" /></a>
+                <figcaption>The mod settings gui. Can be reached from the main menu → Settings → Mod settings.
+                </figcaption>
+            </figure>
+            <p>There are the overall kinds of settings:
+            </p>
+            <ul>
+                <li><b>startup</b>: This kind of setting is available in the prototype stage, and can not be changed
+                    runtime. They have to be set to the same values for all players on a server.</li>
+                <li><b>runtime-global</b>: This kind of setting is global to an entire save game and can be changed
+                    runtime. On servers, only admins can change these settings.</li>
+                <li><b>runtime-per-user</b>: This kind of setting is only available runtime in the control.lua stage and
+                    each player has their own instance of this setting. When a player joins a server their local setting
+                    of "keep mod settings per save" determines if the local settings they have set are synced to the
+                    loaded save or if the save's settings are used.</li>
+            </ul>
+            <p>This "setting_type" also determines in which tab the setting is showed in the mod settings menu.
+            </p>
+            <h3><span class="mw-headline" id="Locale">Locale</span></h3>
+            <p>The locale for mod settings works like any other locale in the game. The names of the groups for the
+                setting name and description (tooltip) are "mod-setting-name" and "mod-setting-description". The
+                dropdown items of a string setting can be localized in the "string-mod-setting" group, but the game
+                falls back to just showing the name of the dropdown item if no localization is found. An example for mod
+                setting localization that would be set within "locale/en/locale.cfg", is:
+            </p>
+            <pre>[mod-setting-name]
+my-mod-string-test-setting=Localized test setting name
+
+[mod-setting-description]
+my-mod-string-test-setting=Localized test setting description
+
+[string-mod-setting]
+#&lt;setting-name&gt;-&lt;dropdown-item-name&gt;=&lt;translated dropdown item&gt;
+my-mod-string-test-setting-item-1=Item 1 localized string
+
+[string-mod-setting-description]
+#&lt;setting-name&gt;-&lt;dropdown-item-name&gt;=&lt;tooltip of dropdown item&gt;
+my-mod-string-test-setting-item-1=Item 1 localized tooltip
+
+</pre>
+            <h2><span class="mw-headline" id="Usage">Usage</span></h2>
+            <h3><span class="mw-headline" id="Reading_settings">Reading settings</span></h3>
+            <p>When accessing any mod setting, you will have to specifically access the <i>value</i> of the setting. The
+                data type of the value depends on the type of the setting. For string settings that use a selection of
+                allowed values, the value of the setting is one of the original string values defined in the prototype,
+                the localization is ignored. See also: <a rel="nofollow" class="external text"
+                    href="https://lua-api.factorio.com/latest/concepts/ModSetting.html">ModSetting concept</a>.
+            </p>
+            <p>In the prototype stage you can access settings of the setting_type "startup" by indexing
+                <code>settings.startup</code> with the name of the setting. Example:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="c1">--in settings.lua:</span>
+<span class="nv">data</span><span class="p">:</span><span class="nf">extend</span><span class="p">({</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;int-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-mod-stone-wall-stack-size&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">setting_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;startup&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">minimum_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1">--in data.lua:</span>
+<span class="nv">data</span><span class="p">.</span><span class="py">raw</span><span class="p">.</span><span class="py">item</span><span class="p">[</span><span class="s2">&quot;stone-wall&quot;</span><span class="p">].</span><span class="nv">stack_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">settings</span><span class="p">.</span><span class="py">startup</span><span class="p">[</span><span class="s2">&quot;my-mod-stone-wall-stack-size&quot;</span><span class="p">].</span><span class="nv">value</span>
+</pre>
+            </div>
+            <div class="plainlinks">
+                <p>In the control stage, "runtime-global" and "runtime-per-user" are additonally available. They can be
+                    accessed as follows:
+                </p>
+                <ul>
+                    <li>"runtime-global" (the <i>current</i> settings, under the Map tab in Mod Settings) can be
+                        accessed using <code>settings.global["setting-name"]</code> (see <a rel="nofollow"
+                            class="external text"
+                            href="https://lua-api.factorio.com/latest/classes/LuaSettings.html">LuaSettings</a>).</li>
+                    <li>"runtime-per-user" are accessed using
+                        <code>settings.get_player_settings(<a rel="nofollow" class="external text" href="https://lua-api.factorio.com/latest/concepts/PlayerIdentification.html">&lt;PlayerIdentification&gt;</a>)["setting-name"]</code>
+                        or
+                        <code>game.players[<a rel="nofollow" class="external text" href="https://lua-api.factorio.com/latest/concepts/PlayerIdentification.html">&lt;PlayerIdentification&gt;</a>].mod_settings["setting-name"]</code>.
+                    </li>
+                </ul>
+            </div>
+            <p>Example:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="c1">--in settings.lua:</span>
+<span class="nv">data</span><span class="p">:</span><span class="nf">extend</span><span class="p">({</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;string-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">setting_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;runtime-global&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">allowed_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bool-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-mod-kill-player-on-entity-built&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">setting_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;runtime-per-user&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1">--in control.lua:</span>
+<span class="nv">script</span><span class="p">.</span><span class="nf">on_init</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">settings</span><span class="p">.</span><span class="py">global</span><span class="p">[</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">].</span><span class="nv">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="nv">game</span><span class="p">.</span><span class="py">difficulty_settings</span><span class="p">.</span><span class="py">recipe_difficulty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="nv">game</span><span class="p">.</span><span class="py">difficulty_settings</span><span class="p">.</span><span class="py">technology_difficulty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="nv">game</span><span class="p">.</span><span class="py">difficulty_settings</span><span class="p">.</span><span class="py">technology_price_multiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="kr">end</span><span class="p">)</span>
+
+<span class="nv">script</span><span class="p">.</span><span class="nf">on_event</span><span class="p">(</span><span class="nv">defines</span><span class="p">.</span><span class="py">events</span><span class="p">.</span><span class="py">on_built_entity</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">event</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">setting_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">settings</span><span class="p">.</span><span class="nf">get_player_settings</span><span class="p">(</span><span class="nv">event</span><span class="p">.</span><span class="py">player_index</span><span class="p">)[</span><span class="s2">&quot;my-mod-kill-player-on-entity-built&quot;</span><span class="p">].</span><span class="nv">value</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">setting_value</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="nv">game</span><span class="p">.</span><span class="nf">get_player</span><span class="p">(</span><span class="nv">event</span><span class="p">.</span><span class="py">player_index</span><span class="p">).</span><span class="nf">die</span><span class="p">()</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre>
+            </div>
+            <h3><span class="mw-headline" id="Writing_to_your_own_settings">Writing to your own settings</span></h3>
+            <p>It is possible for mods to write to their own runtime (global or per player) mod settings. This is done
+                by writing a new <a rel="nofollow" class="external text"
+                    href="https://lua-api.factorio.com/latest/concepts/ModSetting.html">ModSetting</a> table to the
+                setting.
+            </p>
+            <p>Example:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="c1">--in settings.lua:</span>
+<span class="nv">data</span><span class="p">:</span><span class="nf">extend</span><span class="p">({</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;string-setting&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">setting_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;runtime-global&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">allowed_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1">--in control.lua:</span>
+<span class="nv">script</span><span class="p">.</span><span class="nf">on_event</span><span class="p">(</span><span class="nv">defines</span><span class="p">.</span><span class="py">events</span><span class="p">.</span><span class="py">on_rocket_launched</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span>
+<span class="w">    </span><span class="nv">settings</span><span class="p">.</span><span class="py">global</span><span class="p">[</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nv">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">}</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre>
+            </div>
+            <h3><span id="Changing_another_mod.27s_settings"></span><span class="mw-headline"
+                    id="Changing_another_mod's_settings">Changing another mod's settings</span></h3>
+            <p>After creating a setting in the settings stage, it is stored in data.raw until the end of the stage, so
+                it can be altered from another mod.
+            </p>
+            <p>Example:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="c1">--in settings-updates.lua:</span>
+<span class="nv">data</span><span class="p">.</span><span class="py">raw</span><span class="p">[</span><span class="s2">&quot;string-setting&quot;</span><span class="p">][</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">].</span><span class="nv">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span>
+</pre>
+            </div>
+            <p>If the intent is to force the setting to be of a certain value that cannot be modified by players, the
+                properties <a href="#The_hidden_property">hidden</a>, allowed_values and forced_value can be used.
+                Modifying existing settings of other mods can be useful for mod packs or other mod compatibility
+                goals.<a rel="nofollow" class="external autonumber"
+                    href="https://forums.factorio.com/viewtopic.php?p=531322#p531322">[3]</a>
+            </p>
+            <p>Example:
+            </p>
+            <div class="mw-highlight mw-highlight-lang-lua mw-content-ltr" dir="ltr">
+                <pre><span></span><span class="c1">--in settings-updates.lua:</span>
+<span class="nv">data</span><span class="p">.</span><span class="py">raw</span><span class="p">[</span><span class="s2">&quot;string-setting&quot;</span><span class="p">][</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">].</span><span class="nv">hidden</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="nv">data</span><span class="p">.</span><span class="py">raw</span><span class="p">[</span><span class="s2">&quot;string-setting&quot;</span><span class="p">][</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">].</span><span class="nv">allowed_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;no&quot;</span><span class="p">}</span>
+<span class="nv">data</span><span class="p">.</span><span class="py">raw</span><span class="p">[</span><span class="s2">&quot;string-setting&quot;</span><span class="p">][</span><span class="s2">&quot;my-mod-always-difficult&quot;</span><span class="p">].</span><span class="nv">default_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;no&quot;</span>
+</pre>
+            </div>
+            <h3><span class="mw-headline" id="Tips">Tips</span></h3>
+            <ul>
+                <li>Do not conditionally 'require(...)' things depending on mod settings: This breaks the CRC checks and
+                    people will get errors trying to use your mod in multiplayer. 'require(...)' everything and then
+                    conditionally add the values to data.raw using the settings.</li>
+                <li>You should cache the settings table inside the event you use it in. Accessing it is relatively
+                    expensive (about as expensive as accessing game.*prototypes[...]), so when accessing it mutliple
+                    times within the same event, you should set a local variable to it (within the event) to improve
+                    performance.
+                    <ul>
+                        <li>If you want to cache startup/and runtime settings outside of events, you will have to makes
+                            sure that the local variable of settings of the setting_type "runtime-global" are updated in
+                            the <code>on_runtime_mod_setting_changed</code> event.</li>
+                    </ul>
+                </li>
+                <li>If you want to detect whether a certain mod is installed in the settings stage, you can use
+                    <code>if mods["another-mods-name"] then</code>, just like in the data stage.</li>
+            </ul>
+            <h2><span class="mw-headline" id="See_also">See also</span></h2>
+            <ul>
+                <li><a rel="nofollow" class="external text"
+                        href="https://forums.factorio.com/viewtopic.php?p=207275">Forum post documenting mod
+                        settings</a></li>
+                <li><a rel="nofollow" class="external text"
+                        href="https://forums.factorio.com/viewtopic.php?p=305644#p305644">per_user is not a valid
+                        property and has no effects!</a></li>
+                <li><a rel="nofollow" class="external text"
+                        href="https://lua-api.factorio.com/latest/classes/LuaSettings.html">Lua API documentation on the
+                        settings table</a></li>
+            </ul>
+            <!-- 
+NewPP limit report
+Cached time: 20260115152847
+Cache expiry: 86400
+Reduced expiry: false
+Complications: [show‐toc]
+[SMW] In‐text annotation parser time: 0 seconds
+CPU time usage: 0.060 seconds
+Real time usage: 0.068 seconds
+Preprocessor visited node count: 2005/1000000
+Post‐expand include size: 5418/4194304 bytes
+Template argument size: 176/4194304 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 27/10000
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 14040/5000000 bytes
+-->
+            <!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   34.044      1 Template:Languages
+100.00%   34.044      1 -total
+ 70.71%   24.073     22 Template:Language_exist
+ 25.90%    8.816     23 Template:Get_language_code
+ 18.46%    6.285     23 Template:If_language_suffix
+ 15.17%    5.165     21 Template:No_language_suffix
+  9.20%    3.132     44 Template:Language_suffix
+  8.72%    2.967      1 Template:Get_language_name
+  3.94%    1.340      2 Template:Translation
+-->
+
+            <!-- Saved in parser cache with key mediawiki-wiki:pcache:idhash:41540-0!canonical and timestamp 20260115152847 and revision id 215703. Rendering was triggered because: page-view
+ -->
+        </div>
+        <div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr"
+                href="https://wiki.factorio.com/index.php?title=Tutorial:Mod_settings&amp;oldid=215703">https://wiki.factorio.com/index.php?title=Tutorial:Mod_settings&amp;oldid=215703</a>"
+        </div>
+    </div>
+    <div id="catlinks" class="catlinks" data-mw="interface">
+        <div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories"
+                title="Special:Categories">Categories</a>: <ul>
+                <li><a href="/Category:English_page" title="Category:English page">English page</a></li>
+                <li><a href="/Category:Modding" title="Category:Modding">Modding</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="mw-navigation">
+    <h2>Navigation menu</h2>
+    <div id="mw-head">
+
+        <nav id="p-personal" class="mw-portlet mw-portlet-personal vector-user-menu-legacy vector-menu"
+            aria-labelledby="p-personal-label">
+            <h3 id="p-personal-label" class="vector-menu-heading ">
+                <span class="vector-menu-heading-label">Personal tools</span>
+            </h3>
+            <div class="vector-menu-content">
+
+                <ul class="vector-menu-content-list">
+
+                    <li id="pt-login" class="mw-list-item"><a
+                            href="/index.php?title=Special:UserLogin&amp;returnto=Tutorial%3AMod+settings"
+                            title="You are encouraged to log in; however, it is not mandatory [o]"
+                            accesskey="o"><span>Log in</span></a></li>
+                    <li id="pt-createaccount" class="mw-list-item"><a href="/Special:RequestAccount"
+                            title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request
+                                account</span></a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="left-navigation">
+
+            <nav id="p-namespaces"
+                class="mw-portlet mw-portlet-namespaces vector-menu-tabs vector-menu-tabs-legacy vector-menu"
+                aria-labelledby="p-namespaces-label">
+                <h3 id="p-namespaces-label" class="vector-menu-heading ">
+                    <span class="vector-menu-heading-label">Namespaces</span>
+                </h3>
+                <div class="vector-menu-content">
+
+                    <ul class="vector-menu-content-list">
+
+                        <li id="ca-nstab-tutorial" class="selected mw-list-item"><a href="/Tutorial:Mod_settings"
+                                title="View the subject page [c]" accesskey="c"><span>Tutorial</span></a></li>
+                        <li id="ca-talk" class="new mw-list-item"><a
+                                href="/index.php?title=Tutorial_talk:Mod_settings&amp;action=edit&amp;redlink=1"
+                                rel="discussion" class="new"
+                                title="Discussion about the content page (page does not exist) [t]"
+                                accesskey="t"><span>Discussion</span></a></li>
+                    </ul>
+
+                </div>
+            </nav>
+
+
+            <nav id="p-variants" class="mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown vector-menu"
+                aria-labelledby="p-variants-label">
+                <input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true"
+                    data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox"
+                    aria-labelledby="p-variants-label">
+                <label id="p-variants-label" class="vector-menu-heading ">
+                    <span class="vector-menu-heading-label">English</span>
+                </label>
+                <div class="vector-menu-content">
+
+                    <ul class="vector-menu-content-list">
+
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </div>
+        <div id="right-navigation">
+
+            <nav id="p-views" class="mw-portlet mw-portlet-views vector-menu-tabs vector-menu-tabs-legacy vector-menu"
+                aria-labelledby="p-views-label">
+                <h3 id="p-views-label" class="vector-menu-heading ">
+                    <span class="vector-menu-heading-label">Views</span>
+                </h3>
+                <div class="vector-menu-content">
+
+                    <ul class="vector-menu-content-list">
+
+                        <li id="ca-view" class="selected mw-list-item"><a
+                                href="/Tutorial:Mod_settings"><span>Read</span></a></li>
+                        <li id="ca-viewsource" class="mw-list-item"><a
+                                href="/index.php?title=Tutorial:Mod_settings&amp;action=edit"
+                                title="This page is protected.&#10;You can view its source [e]" accesskey="e"><span>View
+                                    source</span></a></li>
+                        <li id="ca-history" class="mw-list-item"><a
+                                href="/index.php?title=Tutorial:Mod_settings&amp;action=history"
+                                title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+                    </ul>
+
+                </div>
+            </nav>
+
+
+            <nav id="p-cactions" class="mw-portlet mw-portlet-cactions vector-menu-dropdown vector-menu"
+                aria-labelledby="p-cactions-label" title="More options">
+                <input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true"
+                    data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox"
+                    aria-labelledby="p-cactions-label">
+                <label id="p-cactions-label" class="vector-menu-heading ">
+                    <span class="vector-menu-heading-label">More</span>
+                </label>
+                <div class="vector-menu-content">
+
+                    <ul class="vector-menu-content-list">
+
+                        <li id="ca-purge" class="is-disabled mw-list-item"><a
+                                href="/index.php?title=Tutorial:Mod_settings&amp;action=purge"><span>Refresh</span></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+
+
+            <div id="p-search" role="search"
+                class="vector-search-box-vue  vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+                <h3>Search</h3>
+                <form action="/index.php" id="searchform" class="vector-search-box-form">
+                    <div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-navigation">
+                        <input class="vector-search-box-input" type="search" name="search"
+                            placeholder="Search the Official Factorio Wiki"
+                            aria-label="Search the Official Factorio Wiki" autocapitalize="sentences"
+                            title="Search Official Factorio Wiki [f]" accesskey="f" id="searchInput">
+                        <input type="hidden" name="title" value="Special:Search">
+                        <input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit"
+                            name="fulltext" title="Search the pages for this text" value="Search">
+                        <input id="searchButton" class="searchButton" type="submit" name="go"
+                            title="Go to a page with this exact name if it exists" value="Go">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="mw-panel" class="vector-legacy-sidebar">
+        <div id="p-logo" role="banner">
+            <a class="mw-wiki-logo" href="/Main_Page" title="Visit the main page"></a>
+        </div>
+
+        <nav id="p-navigation" class="mw-portlet mw-portlet-navigation vector-menu-portal portal vector-menu"
+            aria-labelledby="p-navigation-label">
+            <h3 id="p-navigation-label" class="vector-menu-heading ">
+                <span class="vector-menu-heading-label">Navigation</span>
+            </h3>
+            <div class="vector-menu-content">
+
+                <ul class="vector-menu-content-list">
+
+                    <li id="n-mainpage-description" class="mw-list-item"><a href="/Main_Page"
+                            title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+                    <li id="n-recentchanges" class="mw-list-item"><a href="/Special:RecentChanges"
+                            title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent
+                                changes</span></a></li>
+                    <li id="n-Random-page" class="mw-list-item"><a href="/Special:RandomRootpage"><span>Random
+                                page</span></a></li>
+                    <li id="n-Wiki-rules" class="mw-list-item"><a href="/Factorio:Wiki_rules"><span>Wiki
+                                rules</span></a></li>
+                    <li id="n-Wiki-style-guide" class="mw-list-item"><a href="/Factorio:Style_guide"><span>Wiki style
+                                guide</span></a></li>
+                    <li id="n-Editor-noticeboard" class="mw-list-item"><a
+                            href="/Factorio:Editor_noticeboard"><span>Editor noticeboard</span></a></li>
+                    <li id="n-Admin-noticeboard" class="mw-list-item"><a href="/Factorio:Admin_noticeboard"><span>Admin
+                                noticeboard</span></a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+
+        <nav id="p-Official_Portals"
+            class="mw-portlet mw-portlet-Official_Portals vector-menu-portal portal vector-menu"
+            aria-labelledby="p-Official_Portals-label">
+            <h3 id="p-Official_Portals-label" class="vector-menu-heading ">
+                <span class="vector-menu-heading-label">Official Portals</span>
+            </h3>
+            <div class="vector-menu-content">
+
+                <ul class="vector-menu-content-list">
+
+                    <li id="n-Website" class="mw-list-item"><a href="http://www.factorio.com/"
+                            rel="nofollow"><span>Website</span></a></li>
+                    <li id="n-Forums" class="mw-list-item"><a href="http://forums.factorio.com"
+                            rel="nofollow"><span>Forums</span></a></li>
+                    <li id="n-Mod-Portal" class="mw-list-item"><a href="http://mods.factorio.com"
+                            rel="nofollow"><span>Mod Portal</span></a></li>
+                    <li id="n-Modding-API-Docs" class="mw-list-item"><a href="https://lua-api.factorio.com/latest/"
+                            rel="nofollow"><span>Modding API Docs</span></a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <nav id="p-Editor_Help" class="mw-portlet mw-portlet-Editor_Help vector-menu-portal portal vector-menu"
+            aria-labelledby="p-Editor_Help-label">
+            <h3 id="p-Editor_Help-label" class="vector-menu-heading ">
+                <span class="vector-menu-heading-label">Editor Help</span>
+            </h3>
+            <div class="vector-menu-content">
+
+                <ul class="vector-menu-content-list">
+
+                    <li id="n-Mediawiki-general-help" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents"><span>Mediawiki
+                                general help</span></a></li>
+                    <li id="n-Formatting" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Formatting"><span>Formatting</span></a>
+                    </li>
+                    <li id="n-Images" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Images"><span>Images</span></a>
+                    </li>
+                    <li id="n-Tables" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Tables"><span>Tables</span></a>
+                    </li>
+                    <li id="n-Redirects" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Redirects"><span>Redirects</span></a>
+                    </li>
+                    <li id="n-Templates" class="mw-list-item"><a
+                            href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Templates"><span>Templates</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <nav id="p-tb" class="mw-portlet mw-portlet-tb vector-menu-portal portal vector-menu"
+            aria-labelledby="p-tb-label">
+            <h3 id="p-tb-label" class="vector-menu-heading ">
+                <span class="vector-menu-heading-label">Tools</span>
+            </h3>
+            <div class="vector-menu-content">
+
+                <ul class="vector-menu-content-list">
+
+                    <li id="t-whatlinkshere" class="mw-list-item"><a href="/Special:WhatLinksHere/Tutorial:Mod_settings"
+                            title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links
+                                here</span></a></li>
+                    <li id="t-recentchangeslinked" class="mw-list-item"><a
+                            href="/Special:RecentChangesLinked/Tutorial:Mod_settings" rel="nofollow"
+                            title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related
+                                changes</span></a></li>
+                    <li id="t-specialpages" class="mw-list-item"><a href="/Special:SpecialPages"
+                            title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+                    <li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate"
+                            title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a>
+                    </li>
+                    <li id="t-permalink" class="mw-list-item"><a
+                            href="/index.php?title=Tutorial:Mod_settings&amp;oldid=215703"
+                            title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+                    <li id="t-info" class="mw-list-item"><a
+                            href="/index.php?title=Tutorial:Mod_settings&amp;action=info"
+                            title="More information about this page"><span>Page information</span></a></li>
+                    <li id="t-smwbrowselink" class="mw-list-item"><a href="/Special:Browse/:Tutorial:Mod-5Fsettings"
+                            rel="search"><span>Browse properties</span></a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+
+    </div>
+
+</div>
+
+<footer id="footer" class="mw-footer">
+    <ul id="footer-info">
+        <li id="footer-info-lastmod"> This page was last edited on 3 September 2025, at 17:13.</li>
+        <li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow"
+                href="https://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a> unless otherwise noted.
+        </li>
+    </ul>
+
+    <ul id="footer-places">
+        <li id="footer-places-privacy"><a href="/Factorio:Privacy_policy">Privacy policy</a></li>
+        <li id="footer-places-about"><a href="/Factorio:About">About Official Factorio Wiki</a></li>
+        <li id="footer-places-disclaimers"><a href="/Factorio:General_disclaimer">Disclaimers</a></li>
+    </ul>
+
+    <ul id="footer-icons" class="noprint">
+        <li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/"
+                class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img
+                    src="/resources/assets/licenses/cc-by-nc-sa.png" alt="CC BY-NC-SA 3.0" width="88" height="31"
+                    loading="lazy"></a></li>
+        <li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"
+                class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img
+                    src="/resources/assets/poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31"
+                    loading="lazy"></a></li>
+        <li id="footer-poweredbysmwico"><a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki"
+                class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img
+                    src="/extensions/SemanticMediaWiki/res/smw/assets/logo_footer.svg"
+                    alt="Powered by Semantic MediaWiki" class="smw-footer" width="88" height="31" loading="lazy"></a>
+        </li>
+    </ul>
+
+</footer>
+
+<script>(RLQ = window.RLQ || []).push(function () { mw.config.set({ "wgBackendResponseTime": 229, "wgPageParseReport": { "smw": { "limitreport-intext-parsertime": 0 }, "limitreport": { "cputime": "0.060", "walltime": "0.068", "ppvisitednodes": { "value": 2005, "limit": 1000000 }, "postexpandincludesize": { "value": 5418, "limit": 4194304 }, "templateargumentsize": { "value": 176, "limit": 4194304 }, "expansiondepth": { "value": 13, "limit": 100 }, "expensivefunctioncount": { "value": 27, "limit": 10000 }, "unstrip-depth": { "value": 0, "limit": 20 }, "unstrip-size": { "value": 14040, "limit": 5000000 }, "timingprofile": ["100.00%   34.044      1 Template:Languages", "100.00%   34.044      1 -total", " 70.71%   24.073     22 Template:Language_exist", " 25.90%    8.816     23 Template:Get_language_code", " 18.46%    6.285     23 Template:If_language_suffix", " 15.17%    5.165     21 Template:No_language_suffix", "  9.20%    3.132     44 Template:Language_suffix", "  8.72%    2.967      1 Template:Get_language_name", "  3.94%    1.340      2 Template:Translation"] }, "cachereport": { "timestamp": "20260115152847", "ttl": 86400, "transientcontent": false } } }) });</script>
+</body>
+<!-- Cached/compressed 20260115152848 -->
+
+</html>

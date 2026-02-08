@@ -1,0 +1,11 @@
+{
+    "name": "trains-rethought",
+    "version": "0.1.0",
+    "title": "Trains Rethought",
+    "author": "gade",
+    "factorio_version": "2.0",
+    "dependencies": [
+        "base >= 2.0.0"
+    ],
+    "description": "Reworks train logistics with flatbed wagons that carry placeable chests and a chest-lifting inserter."
+}
